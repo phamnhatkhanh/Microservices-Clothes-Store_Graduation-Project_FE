@@ -37,21 +37,21 @@ const Home = () => {
     staleTime: 300000,
   });
 
-  if (isLoading || shoesQuery.isFetching || shirtQuery.isFetching) {
-    return <Loader />;
-  }
+  // if (isLoading || shoesQuery.isFetching || shirtQuery.isFetching) {
+  //   return <Loader />;
+  // }
 
   return (
     <>
       <main>
-        {heroImageQuery.data ? <Hero data={heroImageQuery.data} /> : null}
+        {/* {heroImageQuery.data ? <Hero data={heroImageQuery.data} /> : null} */}
         <Gallery
-          data={shoesQuery.data}
+          // data={shoesQuery.data}
           galleryName="Best Shoes"
           product="sneaker"
         />
         <Gallery
-          data={shirtQuery.data}
+          // data={shirtQuery.data}
           galleryName="Best Clothes"
           product="t-shirts"
         />

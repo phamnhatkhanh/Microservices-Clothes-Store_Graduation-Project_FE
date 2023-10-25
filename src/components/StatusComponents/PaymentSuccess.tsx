@@ -8,7 +8,8 @@ import Loader from "../Reusables/Loader.tsx"
 
 const PaymentSuccess = () => {
   const dispatch = useDispatch();
-  const isLoading = useAppSelector(loadingSelector)
+  const isLoading = false;
+  // const isLoading = useAppSelector(loadingSelector)
 
   const removeCartItems = () => {
     dispatch(setCartItem([]));

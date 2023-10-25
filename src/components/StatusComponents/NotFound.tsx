@@ -4,8 +4,8 @@ import { loadingSelector } from "../../store/slices/loadingSlice";
 import Loader from "../Reusables/Loader";
 
 const NotFound = () => {
-  const isLoading = useAppSelector(loadingSelector);
-
+  const isLoading = false;
+  // const isLoading = useAppSelector(loadingSelector);
   return (
     <>
       {isLoading ? <Loader /> : null}

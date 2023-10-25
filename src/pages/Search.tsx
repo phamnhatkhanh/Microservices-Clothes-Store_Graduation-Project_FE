@@ -7,7 +7,8 @@ import { loadingSelector } from "../store/slices/loadingSlice";
 import Loader from "../components/Reusables/Loader";
 
 const Search = () => {
-  const isLoading = useAppSelector(loadingSelector);
+  const isLoading = false;
+  // const isLoading = useAppSelector(loadingSelector);
   return (
     <>
       {isLoading ? (
