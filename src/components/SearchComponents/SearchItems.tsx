@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState} from "react";
 import { useQuery } from "@tanstack/react-query";
 import getImages from "../../utilities/api/apiService";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -19,6 +19,7 @@ import {
 import { filterSelector, initialState } from "../../store/slices/filterSlice";
 import { checkoutPriceSelector } from "../../store/slices/checkoutPriceSlice";
 import toTitleCase from "../../utilities/SmallFunctions/titleCase";
+import {getCollections,CollectionItem} from "../../utilities/api/apiService";
 
 const SearchItems = () => {
   const dispatch = useAppDispatch();
@@ -33,12 +34,21 @@ const SearchItems = () => {
     window.scroll({ top: 0, behavior: "smooth" });
   }, [pagination]);
 
-  useEffect(() => {
-    dispatch(setPagination(1));
-  }, [searchQueryValue, dispatch]);
+  // useEffect(() => {
+  //   dispatch(setPagination(1));
+  // }, [searchQueryValue, dispatch]);
 
   const perPage = 20;
   const orientation = "squarish";
+
+  const [collections, setCollections] = useState<CollectionItem[]>([]);
+
+useEffect(() => {
+  getCollections().then((data) => {
+    setCollections(data);
+  });
+}, []);
+  
 
   // const searchQuery = useQuery({
   //   queryKey: ["product", searchQueryValue, perPage, orientation, pagination],
@@ -53,34 +63,34 @@ const SearchItems = () => {
   //   return <Loader />;
   // }
 
-  // const validItem = (itemCategory: string, itemPrice: number) => {
-  //   if (filters === initialState) return true;
+  const validItem = (itemCategory: string, itemPrice: number) => {
+    if (filters === initialState) return true;
 
-  //   let isValidItem = true;
+    let isValidItem = true;
 
-  //   if (category !== "") {
-  //     if (category !== itemCategory) {
-  //       isValidItem = false;
-  //     }
-  //   }
+    if (category !== "") {
+      if (category !== itemCategory) {
+        isValidItem = false;
+      }
+    }
 
-  //   if (price && price?.length > 0) {
-  //     for (let i = 0; i < price.length; i++) {
-  //       if (itemPrice > price[i]) {
-  //         isValidItem = false;
-  //         return;
-  //       }
-  //     }
-  //   }
+    if (price && price?.length > 0) {
+      for (let i = 0; i < price.length; i++) {
+        if (itemPrice > price[i]) {
+          isValidItem = false;
+          return;
+        }
+      }
+    }
 
-  //   if (shipping === "Free" && checkoutPrice < freeShippingPrice) {
-  //     if (itemPrice < freeShippingPrice) {
-  //       isValidItem = false;
-  //     }
-  //   }
+    if (shipping === "Free" && checkoutPrice < freeShippingPrice) {
+      if (itemPrice < freeShippingPrice) {
+        isValidItem = false;
+      }
+    }
 
-  //   return isValidItem;
-  // };
+    return isValidItem;
+  };
 
   return (
     <>
@@ -94,8 +104,8 @@ const SearchItems = () => {
                  
                     />
           </div><div className="p-2 pb-5"><p className="font-bold">Men's Wool Runners</p><p>$104</p></div></a>
-        {/* {searchQuery.data?.results.length ? (
-          searchQuery.data?.results.map((data) => {
+        {collections? (
+          collections.map((data) => {
             const category = randomCategory();
             const title = randomTitle();
             const price = generatePrice();
@@ -108,9 +118,9 @@ const SearchItems = () => {
                   onClick={() => {
                     dispatch(
                       setProductItems({
-                        Imgurl: data.urls.regular,
+                        Imgurl: "https://ae01.alicdn.com/kf/HTB1F02QKb5YBuNjSspoq6zeNFXaW.jpg",
                         product: searchQueryValue,
-                        title: title,
+                        title: data.title,
                         price: price,
                       })
                     );
@@ -120,13 +130,13 @@ const SearchItems = () => {
                     <img
                       loading="lazy"
                       className="object-cover"
-                      src={data.urls.regular}
-                      alt={data.alt_description}
+                      src="https://ae01.alicdn.com/kf/HTB1F02QKb5YBuNjSspoq6zeNFXaW.jpg"
+                      alt={data.title}
                     />
                   </div>
                   <div className="p-2 pb-5">
                     <p className="font-bold">
-                      {generateTitle(category, title)}
+                      {generateTitle(category, data.title)}
                     </p>
                     <p>{price}</p>
                   </div>
@@ -136,7 +146,7 @@ const SearchItems = () => {
           })
         ) : (
           <div className="text-red-500 text-xl uppercase">Not Found</div>
-        )} */}
+        )}
       </section>
     </>
   );
