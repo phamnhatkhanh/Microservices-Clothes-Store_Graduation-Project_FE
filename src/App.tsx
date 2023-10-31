@@ -118,7 +118,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/products/:productName" element={<ProductPage />}></Route>
+        <Route path="/products/:productId" element={<ProductPage />}></Route>
         <Route path="/search" element={<Search />}></Route>
         {/* <Route path="/auth" element={<AuthPage />}></Route> */}
         <Route path="/checkout" element={<CheckoutPanel />}></Route>

@@ -29,16 +29,16 @@ const SearchItems = () => {
   const searchQueryValue = useAppSelector(searchQuerySelector);
   const { category, price, shipping } = filters;
 
-  // useEffect(() => {
-  //   window.scroll({ top: 0, behavior: "smooth" });
-  // }, [pagination]);
+  useEffect(() => {
+    window.scroll({ top: 0, behavior: "smooth" });
+  }, [pagination]);
 
-  // useEffect(() => {
-  //   dispatch(setPagination(1));
-  // }, [searchQueryValue, dispatch]);
+  useEffect(() => {
+    dispatch(setPagination(1));
+  }, [searchQueryValue, dispatch]);
 
-  // const perPage = 20;
-  // const orientation = "squarish";
+  const perPage = 20;
+  const orientation = "squarish";
 
   // const searchQuery = useQuery({
   //   queryKey: ["product", searchQueryValue, perPage, orientation, pagination],
