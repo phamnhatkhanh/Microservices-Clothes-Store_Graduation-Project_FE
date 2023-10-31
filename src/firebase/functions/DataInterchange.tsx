@@ -12,13 +12,13 @@ export const storeData = async (userId: string, data: UserData) => {
 
     await setDoc(userDocRef, data);
   } catch (error) {
-    console.log("Error storting data", error);
+    //console.log("Error storting data", error);
   }
 };
 
 export const retrieveData = async (userId: string) => {
   if (!userId) {
-    console.log("Error: User ID is empty.");
+    //console.log("Error: User ID is empty.");
     return;
   }
   try {
@@ -34,7 +34,7 @@ export const retrieveData = async (userId: string) => {
       return userData;
     } else {
       // Document doesn't exist
-      console.log("Document not found.");
+      //console.log("Document not found.");
       return null;
     }
   } catch (error) {

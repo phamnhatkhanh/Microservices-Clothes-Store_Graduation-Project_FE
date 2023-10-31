@@ -1,16 +1,42 @@
 import axios, { AxiosResponse } from "axios";
 
+// export type ApiResponse = {
+//   total: number;
+//   total_pages: number;
+//   results: {
+//     id: string;
+//     alt_description: string;
+//     description: string;
+//     price: string;
+//     urls: {
+//       regular: string;
+//     };
+//   }[];
+// };
+export type CollectionItem = {
+  bodyHtml: string;
+  createdAt: string;
+  handle: string;
+  id: number;
+  productType: string;
+  publishedAt: string | null;
+  publishedScope: string;
+  status: string;
+  tags: string;
+  templateSuffix: string | null;
+  title: string;
+  updatedAt: string;
+  vendor: string;
+};
+
 export type ApiResponse = {
-  total: number;
-  total_pages: number;
-  results: {
-    id: string;
-    alt_description: string;
-    description: string;
-    urls: {
-      regular: string;
-    };
-  }[];
+  id: string;
+  title: string;
+  bodyHtml: string;
+  // price: string;
+  // urls: {
+  //   regular: string;
+  // };
 };
 
 type Orientation = "landscape" | "portrait" | "squarish";
@@ -43,5 +69,50 @@ export default async function getImages(
   } catch (error) {
     // Handle error appropriately
     throw new Error("Failed to fetch data");
+  }
+}
+
+export async function getProductId(
+  id: string,
+  perPage: number,
+  orientation: Orientation,
+  pagination?: number
+) {
+
+
+  const apiUrl = "http://localhost:8081/api/products";
+
+  try {
+    const currentPage = pagination || Math.floor(Math.random() * 30 + 1);
+
+    const response: AxiosResponse<ApiResponse> = await axios.get(
+      `${apiUrl}/${id}`
+      // `${apiUrl}?query=${encodeURIComponent(
+      //   query
+      // )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
+    );
+
+    
+    return response;
+  } catch (error) {
+    // Handle error appropriately
+    throw new Error("Failed to fetch data");
+  }
+}
+export  async function getCollections(): Promise<CollectionItem[]> {
+  const apiUrl = "http://localhost:8081/api/collections/286469980369";
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`API request failed with status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    // Assuming the API response is an array of collection items
+    return data;
+  } catch (error) {
+    console.error("Error fetching collections:", error);
+    return [];
   }
 }

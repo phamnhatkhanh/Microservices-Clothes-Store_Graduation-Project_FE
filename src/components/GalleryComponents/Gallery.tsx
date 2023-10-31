@@ -1,21 +1,50 @@
 import { useState } from "react";
 import GalleryItem from "./GalleryItem";
-import { ApiResponse } from "../../utilities/api/apiService";
+import { CollectionItem } from "../../utilities/api/apiService";
 import { setProductItems } from "../../store/slices/productSlice";
 import generatePrice from "../../utilities/RandomGenerators/generatePrice";
 import CarouselArrow from "./CarouselArrow";
 import { randomTitle } from "../../utilities/RandomGenerators/generateTitle";
 import { useAppDispatch } from "../../store/hooks";
 
+// type GalleryProps = {
+//   data?: any[string];
+//   galleryName: string;
+//   product: string;
+// };
+// type CollectionItem = {
+//   bodyHtml: string;
+//   createdAt: string;
+//   handle: string;
+//   id: number;
+//   productType: string;
+//   publishedAt: string | null;
+//   publishedScope: string;
+//   status: string;
+//   tags: string;
+//   templateSuffix: string | null;
+//   title: string;
+//   updatedAt: string;
+//   vendor: string;
+// };
+
+
 type GalleryProps = {
-  data?: ApiResponse;
+  data?: CollectionItem[];
   galleryName: string;
   product: string;
 };
 
-const Gallery = ({ data, galleryName, product }: GalleryProps) => {
+const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
   const dispatch = useAppDispatch();
   const [transformValue, setTransformValue] = useState(0);
+  // data.forEach(element => {
+    
+  // });((item) => {
+  //   console.log(item); // "Data from the Promise"
+  // });
+  
+
 
   return (
     <>
@@ -33,15 +62,15 @@ const Gallery = ({ data, galleryName, product }: GalleryProps) => {
             className="flex w-fit mx-4 transition-all"
             style={{ transform: `translateX(${transformValue}px)` }}
           >
-            {data?.results.map((data) => {
+            {data? data.map((item) => {
               const title = randomTitle()
               return (
                 <div
-                  key={data.id}
+                  key={item.id}
                   onClick={() => {
                     dispatch(
                       setProductItems({
-                        Imgurl: data.urls.regular,
+                        Imgurl: "data.urls.regular",
                         product: product,
                         title: title,
                         price: generatePrice(),
@@ -50,13 +79,13 @@ const Gallery = ({ data, galleryName, product }: GalleryProps) => {
                   }}
                 >
                   <GalleryItem
-                    imageUrl={data.urls.regular}
-                    altText={data.alt_description}
+                    imageUrl="https://ae01.alicdn.com/kf/HTB1ypWdKXmWBuNjSspdq6zugXXaQ.jpg"
+                    altText="{item.bodyHtml}"
                     title={title}
                   />
                 </div>
               );
-            })}
+            }):[]}
           </div>
         </div>
       </section>

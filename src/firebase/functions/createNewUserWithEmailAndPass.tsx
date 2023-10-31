@@ -16,12 +16,12 @@ export const createNewUserWithEmailAndPass = async (
         credential
       );
       const newUser = userCredential.user; // Extracting the user from AuthResult
-      console.log(newUser);
+      //console.log(newUser);
 
       await logInWithEmailAndPassword(email, password);
-      console.log("Logged in successfully");
+      //console.log("Logged in successfully");
     } catch (err) {
-      console.log("Failed to link or log in:", err);
+      //console.log("Failed to link or log in:", err);
     }
   }
 };

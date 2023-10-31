@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { signInAnonymous } from "./firebase/auth/anonymousAuth";
+// import { signInAnonymous } from "./firebase/auth/anonymousAuth";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import "./index.css";
@@ -13,10 +13,10 @@ import {
   cartItemsSelector,
   setCartItem,
 } from "./store/slices/cartItemsSlice";
-import { retrieveData, storeData } from "./firebase/functions/DataInterchange";
+// import { retrieveData, storeData } from "./firebase/functions/DataInterchange";
 import AuthPage from "./pages/AuthPage";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "./firebase/firebase";
 import { setLoading } from "./store/slices/loadingSlice";
 import { setTheme } from "./store/slices/themeSlice";
 import CheckoutPanel from "./components/CheckoutComponents/CheckoutPanel";
@@ -111,6 +111,7 @@ function App() {
   //   }
   // }, [dispatch]);
 
+  
   return (
     <>
   
