@@ -4,7 +4,8 @@ import StripeBuyButton from "./BuyButton";
 import Loader from "../Reusables/Loader.tsx";
 
 const CheckoutPanel = () => {
-  const isLoading = useAppSelector(loadingSelector);
+  const isLoading = false;
+  // const isLoading = useAppSelector(loadingSelector);
   return (
     <>
       {isLoading ? <Loader /> : null}

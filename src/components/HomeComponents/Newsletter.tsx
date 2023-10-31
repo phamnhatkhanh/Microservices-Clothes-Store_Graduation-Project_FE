@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { subscribeToNewsletter } from "../../firebase/functions/SubscribeToNewsletter";
+// import { subscribeToNewsletter } from "../../firebase/functions/SubscribeToNewsletter";
 
 type SubscribeNewsletter = {
   name: string;
@@ -11,29 +11,30 @@ type SubscribeNewsletter = {
 const Newsletter = () => {
   const subscribeRef = useRef<HTMLButtonElement>(null);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<SubscribeNewsletter>();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<SubscribeNewsletter>();
 
-  const onSubmit = async (data: SubscribeNewsletter) => {
-    const { name, email, review } = data;
-    const subRef = subscribeRef.current;
-    subRef ? (subRef.innerHTML = "Bringing You Abroad..") : null;
-    await subscribeToNewsletter(name, email, review).catch(() => {
-      console.log("Failed To Subscribe!");
-    });
-    reset();
-    if (subRef) {
-      subRef.style.transform = "rotateX(360deg)";
-      subRef.innerHTML = "Subscribed!!";
-      subRef.disabled = true;
-      subRef.style.cursor = "not-allowed";
-      subRef.title = "Subscribed";
-    }
-  };
+  // const onSubmit = async (data: SubscribeNewsletter) => {
+  //   const { name, email, review } = data;
+  //   const subRef = subscribeRef.current;
+  //   subRef ? (subRef.innerHTML = "Bringing You Abroad..") : null;
+
+  //   await subscribeToNewsletter(name, email, review).catch(() => {
+  //     console.log("Failed To Subscribe!");
+  //   });
+  //   reset();
+  //   if (subRef) {
+  //     subRef.style.transform = "rotateX(360deg)";
+  //     subRef.innerHTML = "Subscribed!!";
+  //     subRef.disabled = true;
+  //     subRef.style.cursor = "not-allowed";
+  //     subRef.title = "Subscribed";
+  //   }
+  // };
 
   return (
     <>
@@ -43,8 +44,8 @@ const Newsletter = () => {
           Join our email list and be the first one to know about new limited
           edition products, material innovations, and lots of other fun updates.
         </h3>
-        <div className="w-screen">
-          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        {/* <div className="w-screen"> */}
+{/*          
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
@@ -77,7 +78,7 @@ const Newsletter = () => {
           {errors.name?.type === "required" && (
             <p className="mt-1 text-red-500">Name is required.</p>
           )}
-        </div>
+        </div> */}
       </section>
     </>
   );
