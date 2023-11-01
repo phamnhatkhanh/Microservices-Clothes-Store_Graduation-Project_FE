@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import Buttons from "../Reusables/Buttons";
-import { ApiResponse } from "../../utilities/api/apiService";
+
+import { CollectionItem } from "../../utilities/api/apiService";
+
 
 type HeroImage = {
-  data: ApiResponse;
+  data: CollectionItem[];
 };
 
 type Results = {
@@ -19,10 +21,18 @@ const Hero = ({ data }: HeroImage) => {
   const [results, setResults] = useState<Results | null>(null);
 
   useEffect(() => {
+
     const visibleItems = Math.ceil(window.innerWidth / 800);
-    const visibleImages = data.results.slice(0, visibleItems);
+    const visibleImages = data.map((item) => ({
+      id: item.id.toString(),
+      alt_description: '', // You can provide a value or logic for this field
+      description: item.title, // You can map the 'title' field to 'description'
+      urls: {
+        regular: "https://ae01.alicdn.com/kf/HTB13SVNtTCWBKNjSZFtq6yC3FXaw.jpg", // You can provide a value or logic for this field
+      },
+    })).slice(0, visibleItems);
     setResults(visibleImages);
-  }, [data.results]);
+  }, [data]);
 
 
   return (
@@ -33,7 +43,7 @@ const Hero = ({ data }: HeroImage) => {
           {results?.map((item) => {
             return (
               <img
-              key={item.id}
+                key={item.id}
                 className="h-100 object-cover w-[50rem]"
                 src={item.urls.regular}
                 alt={item.alt_description}

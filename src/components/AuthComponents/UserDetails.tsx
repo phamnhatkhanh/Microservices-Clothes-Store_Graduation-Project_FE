@@ -10,11 +10,11 @@ const UserDetails = () => {
     dispatch(setLoading(true));
     signOut(auth)
       .then(() => {
-        console.log("Signed Out");
+        //console.log("Signed Out");
         signInAnonymous();
       })
       .catch((err) => {
-        console.log(err, "Not signed out.");
+        //console.log(err, "Not signed out.");
       });
   };
   return (

@@ -24,7 +24,7 @@ const Newsletter = () => {
   //   subRef ? (subRef.innerHTML = "Bringing You Abroad..") : null;
 
   //   await subscribeToNewsletter(name, email, review).catch(() => {
-  //     console.log("Failed To Subscribe!");
+  //     //console.log("Failed To Subscribe!");
   //   });
   //   reset();
   //   if (subRef) {
