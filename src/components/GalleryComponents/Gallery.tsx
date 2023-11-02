@@ -63,16 +63,16 @@ const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
             style={{ transform: `translateX(${transformValue}px)` }}
           >
             {data? data.map((item) => {
-              const title = randomTitle()
+              
               return (
                 <div
                   key={item.id}
                   onClick={() => {
                     dispatch(
                       setProductItems({
-                        Imgurl: "data.urls.regular",
+                        Imgurl: "https://ae01.alicdn.com/kf/HTB1ypWdKXmWBuNjSspdq6zugXXaQ.jpg",
                         product: product,
-                        title: title,
+                        title: item.title,
                         price: generatePrice(),
                       })
                     );
@@ -81,7 +81,7 @@ const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
                   <GalleryItem
                     imageUrl="https://ae01.alicdn.com/kf/HTB1ypWdKXmWBuNjSspdq6zugXXaQ.jpg"
                     altText="{item.bodyHtml}"
-                    title={title}
+                    title={item.title}
                   />
                 </div>
               );
