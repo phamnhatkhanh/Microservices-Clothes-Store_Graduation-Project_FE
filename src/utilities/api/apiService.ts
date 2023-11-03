@@ -58,14 +58,14 @@ export default async function getImages(
   try {
     const currentPage = pagination || Math.floor(Math.random() * 30 + 1);
 
-    // const response: AxiosResponse<ApiResponse> = await axios.get(
-    //   `${apiUrl}?query=${encodeURIComponent(
-    //     query
-    //   )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
-    // );
+    const response: AxiosResponse<ApiResponse> = await axios.get(
+      `${apiUrl}?query=${encodeURIComponent(
+        query
+      )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
+    );
 
-
-    return "https://images.unsplash.com/photo-1690583367285-b1803e5b050c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzcwMTB8MHwxfHNlYXJjaHwzMnx8dC1zaGlydHN8ZW58MHwyfHx8MTY5ODI0ODY4NHww&ixlib=rb-4.0.3&q=80&w=1080";
+return response;
+    // return "https://images.unsplash.com/photo-1690583367285-b1803e5b050c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzcwMTB8MHwxfHNlYXJjaHwzMnx8dC1zaGlydHN8ZW58MHwyfHx8MTY5ODI0ODY4NHww&ixlib=rb-4.0.3&q=80&w=1080";
   } catch (error) {
     // Handle error appropriately
     throw new Error("Failed to fetch data");
