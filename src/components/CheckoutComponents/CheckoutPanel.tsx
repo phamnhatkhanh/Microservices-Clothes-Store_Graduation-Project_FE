@@ -1,6 +1,10 @@
 
-
+import React, { useState, ChangeEvent } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../../App.css';
+
+
+
 
 
 
@@ -9,6 +13,89 @@ const CheckoutPanel = () => {
   const centeredSectionStyle = {
     display: 'flex',
     justifyContent: 'center'
+  };
+
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [nameError, setNameError] = useState('');
+
+  const saveOrder = () => {
+    const requestBody = {
+      email,
+      phone,
+      name,
+      address,
+      city,
+    };
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    };
+
+    fetch('http://localhost:8080/orders', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        // Handle the server response here if needed
+      })
+      .catch(error => {
+        // Handle any errors here
+        navigate("/success");
+      });
+
+  };
+  const isAvaliablePhone = (event:any)  => {
+      const phoneValue = event.target.value;
+      setPhone(phoneValue);
+  
+    // Regular expression for a valid 11-digit number
+    const phoneRegex = /^0[0-9]{9}$/;
+
+    if (!phoneRegex.test(phoneValue)) {
+      setPhoneError('Phone must be 10 digits with only numbers.');
+      return false;
+    } else {
+      setPhoneError('');
+      return true;
+    }
+  };
+
+  const isAvaliableName = (event:any)  => {
+    const nameValue = event.target.value;
+    setName(nameValue);
+    if (name.length < 6) {
+      setNameError('Name must be at least 6 characters long.');
+      return false;
+    } else {
+      setNameError('');
+      return true;
+    }
+  };
+
+  const isAvaliableEmail = (event:any)  => {
+    const emailValue = event.target.value;
+    setEmail(emailValue);
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+    if (!emailRegex.test(emailValue)) {
+      setEmailError('Please enter a valid email address.');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
+    }
+  };
+
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    saveOrder();
   };
   const isLoading = false;
   // const isLoading = useAppSelector(loadingSelector);
@@ -35,49 +122,62 @@ const CheckoutPanel = () => {
                             <h5 className="font-size-16 mb-1">Billing Info</h5>
                             <p className="text-muted text-truncate mb-4">Sed ut perspiciatis unde omnis iste</p>
                             <div className="mb-3">
-                              <form>
+                              <form >
                                 <div>
                                   <div className="row">
                                     <div className="col-lg-4">
                                       <div className="mb-3">
                                         <label className="form-label" htmlFor="billing-name">Name</label>
-                                        <input type="text" className="form-control" id="billing-name" placeholder="Enter name" />
+                                        <input type="text" className="form-control" id="billing-name" placeholder="Enter name" value={name}
+                                          onChange={isAvaliableName} />
+                                          {nameError && <div className="text-danger">{nameError}</div>}
                                       </div>
                                     </div>
                                     <div className="col-lg-4">
                                       <div className="mb-3">
                                         <label className="form-label" htmlFor="billing-email-address">Email Address</label>
-                                        <input type="email" className="form-control" id="billing-email-address" placeholder="Enter email" />
+                                        <input type="email" className="form-control" id="billing-email-address" placeholder="Enter email" value={email}
+                                          onChange={isAvaliableEmail} />
+                                        {emailError && <div className="text-danger">{emailError}</div>}
                                       </div>
                                     </div>
                                     <div className="col-lg-4">
                                       <div className="mb-3">
                                         <label className="form-label" htmlFor="billing-phone">Phone</label>
-                                        <input type="text" className="form-control" id="billing-phone" placeholder="Enter Phone no." />
+                                        <input type="text" className="form-control" id="billing-phone" placeholder="Enter Phone no." value={phone}
+                                          onChange={isAvaliablePhone} />
+                                              {phoneError && <div className="text-danger">{phoneError}</div>}
                                       </div>
                                     </div>
                                   </div>
                                   <div className="mb-3">
                                     <label className="form-label" htmlFor="billing-address">Address</label>
-                                    <textarea className="form-control" id="billing-address" rows="3" placeholder="Enter full address"></textarea>
+                                    <input type="text" className="form-control" id="billing-address" rows="3" placeholder="Enter full address" value={address}
+                                      onChange={(event) => setAddress(event.target.value)}></input>
                                   </div>
-                                  <div className="row">
 
+                                  <div className="row">
                                     <div className="col-lg-4">
                                       <div className="mb-4 mb-lg-0">
                                         <label className="form-label" htmlFor="billing-city">City</label>
-                                        <input type="text" className="form-control" id="billing-city" placeholder="Enter City" />
+                                        <input type="text" className="form-control" id="billing-city" placeholder="Enter City" value={city}
+                                          onChange={(event) => setCity(event.target.value)} />
                                       </div>
                                     </div>
                                   </div>
                                 </div>
 
                                 <div className="row">
-
                                   <div className="col-lg-3 col-sm-6">
                                     <div>
                                       <label className="card-radio-label">
-                                        <input type="radio" name="pay-method" id="pay-methodoption3" className="card-radio-input" checked />
+                                        <input
+                                          name="pay-method"
+                                          id="pay-methodoption3"
+                                          className="card-radio-input"
+                                          type="button"
+                                          onClick={handleSubmit}
+                                        />
                                         <span className="card-radio py-3 text-center text-truncate">
                                           <i className="bx bx-money d-block h2 mb-3"></i>
                                           <span>Cash on Delivery</span>
