@@ -6,7 +6,7 @@ import { productSelector } from "../../store/slices/productSlice";
 import { showCart } from "../../store/slices/cartPageTransform";
 
 type SizeAndCartPanelProps = {
-  price: string;
+  price: any;
   category: string;
 };
 
@@ -14,7 +14,7 @@ const SizeAndCartPanel = ({ price, category }: SizeAndCartPanelProps) => {
   const dispatch = useAppDispatch();
 
   const productItems = useAppSelector(productSelector);
-  const { Imgurl, title, product } = productItems;
+  const { id, title, vendor, productType, banner, status } = productItems;
 
   const size = [5, 6, 7, 8, 9, 10, 11];
 
@@ -32,13 +32,10 @@ const SizeAndCartPanel = ({ price, category }: SizeAndCartPanelProps) => {
     if (activeSize) {
       dispatch(
         addCartItem({
-          title,
+          id, title, vendor, productType, price, status,banner,
           size: activeSize,
-          Imgurl,
-          price,
           quantity: 1,
-          product,
-          category,
+
         })
       );
       dispatch(showCart());
@@ -55,11 +52,10 @@ const SizeAndCartPanel = ({ price, category }: SizeAndCartPanelProps) => {
             {size.map((item) => {
               return (
                 <div
-                  className={`border-2 text-lg w-1/4 md:w-52 h-[11vw] md:h-[7vw] cursor-pointer flex justify-center items-center transition-all ${
-                    activeSize === item
+                  className={`border-2 text-lg w-1/4 md:w-52 h-[11vw] md:h-[7vw] cursor-pointer flex justify-center items-center transition-all ${activeSize === item
                       ? "bg-slate-900 text-white dark:bg-white dark:text-black"
                       : "bg-transparent text-black dark:text-white"
-                  }`}
+                    }`}
                   key={item}
                   onClick={() => handleSizeSelect(item)}
                 >
@@ -69,11 +65,10 @@ const SizeAndCartPanel = ({ price, category }: SizeAndCartPanelProps) => {
             })}
           </div>
           <button
-            className={`w-[93vw] font-bold text-white h-12 mt-4 self-center uppercase tracking-wide  ${
-              activeSize
+            className={`w-[93vw] font-bold text-white h-12 mt-4 self-center uppercase tracking-wide  ${activeSize
                 ? "bg-slate-900 cursor-pointer dark:bg-white dark:text-black"
                 : "bg-[#d3d4d5] cursor-not-allowed dark:text-black dark:bg-gray-500"
-            }`}
+              }`}
             disabled={!activeSize}
             onClick={handleAddToCart}
           >

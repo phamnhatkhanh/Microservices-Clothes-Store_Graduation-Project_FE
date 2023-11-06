@@ -30,7 +30,7 @@ const Breadcrumb = ({
           Home
         </Link>
         <span>/</span>
-        <Link
+        {/* <Link
           to={`/search`}
           className="underline"
           onClick={() => {
@@ -38,8 +38,8 @@ const Breadcrumb = ({
           }}
         >
           {productCategory}
-        </Link>
-        <span>/</span>
+        </Link> */}
+        {/* <span>/</span> */}
         <Link
           to={`/search`}
           className="underline"
@@ -50,7 +50,7 @@ const Breadcrumb = ({
         >
           {toTitleCase(product)}
         </Link>
-        <span>/</span>
+        {/* <span>/</span> */}
       </div>
     </>
   );

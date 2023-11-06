@@ -6,22 +6,23 @@ import { useEffect } from "react";
 import Breadcrumb from "../components/ProductComponents/Breadcrumb";
 import ProductDescription from "../components/ProductComponents/ProductDescription";
 import SizeAndCartPanel from "../components/ProductComponents/SizeAndCartPanel";
-import { loadingSelector } from "../store/slices/loadingSlice";
+
 import Loader from "../components/Reusables/Loader";
 
 const ProductPage = () => {
   const [searchParam] = useSearchParams();
   const category = searchParam.get("category") || "";
   const isLoading = false;
-  // const isLoading = useAppSelector(loadingSelector);
+  
   const productItems = useAppSelector(productSelector);
-  const { Imgurl, product, title, price } = productItems;
+  
+  const { id,title,bodyHtml,vendor,productType,createdAt,updatedAt,publishedAt,banner,price,tags,status} = productItems;
 
   useEffect(() => {
     window.scroll({ top: 0 });
   }, [productItems]);
 
-  const productCategory = `${toTitleCase(category)}'s ${toTitleCase(title)}`;
+  const productCategory = `${toTitleCase(title)}`;
 
   return (
     <>
@@ -29,17 +30,19 @@ const ProductPage = () => {
         <Loader />
       ) : (
         <>
-          
+
           <section className="productPreview mt-20 pb-5 transition-all duration-500 dark:bg-black dark:text-white">
             <Breadcrumb
-              product={product}
+              product={title}
               productCategory={productCategory}
               category={category}
             />
             <ProductDescription
+              id={id}
               category={category}
               title={title}
-              Imgurl={Imgurl}
+              imgurl={banner}
+              bodyHtml = {bodyHtml}
               price={price}
             />
             <SizeAndCartPanel price={price} category={category} />

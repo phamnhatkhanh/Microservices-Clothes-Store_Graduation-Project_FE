@@ -2,10 +2,18 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export type ProductState = {
-  Imgurl: string;
-  product: string;
-  title: string;
-  price: string;
+  id:any;
+  title:string;
+  banner:string;
+  price:number;
+  bodyHtml?:string;
+  vendor?:string;
+  productType?:string;
+  createdAt?:string;
+  updatedAt?:string;
+  publishedAt?:string;
+  tags?:string;
+  status?:string;
 };
 
 const getInitialProductState = (): ProductState => {
@@ -14,10 +22,13 @@ const getInitialProductState = (): ProductState => {
     return JSON.parse(storedState) as ProductState;
   }
   return {
-    Imgurl: "",
-    product: "",
-    title: "",
-    price: "",
+    id:0,
+    title:"",
+    bodyHtml:"",
+    vendor:"",
+    productType:"",
+    banner:"",
+    price:0,
   };
 };
 
