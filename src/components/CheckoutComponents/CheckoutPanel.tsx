@@ -2,8 +2,12 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../../App.css';
-
-
+import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
+import {
+  cartItemsSelector,
+  setCartItem
+} from "../../store/slices/cartItemsSlice";
 
 
 
@@ -25,35 +29,44 @@ const CheckoutPanel = () => {
   const [phoneError, setPhoneError] = useState('');
   const [nameError, setNameError] = useState('');
 
+  const cartItemDetails = useAppSelector(cartItemsSelector);
+  const dispatch = useAppDispatch();
   const saveOrder = () => {
+    
+    const items = cartItemDetails.map((item) => {
+      const { id, price, quantity } = item;
+      return { id, price, quantity };
+    });
+    
     const requestBody = {
       email,
       phone,
       name,
       address,
       city,
+      items
     };
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     };
-
-    fetch('http://localhost:8080/orders', requestOptions)
-      .then(response => response.json())
+    
+    fetch('http://localhost:8082/api/orders', requestOptions)
       .then(data => {
-        // Handle the server response here if needed
+        navigate("/success");
+        dispatch(setCartItem([]));
       })
       .catch(error => {
         // Handle any errors here
-        navigate("/success");
+        
       });
 
   };
-  const isAvaliablePhone = (event:any)  => {
-      const phoneValue = event.target.value;
-      setPhone(phoneValue);
-  
+  const isAvaliablePhone = (event: any) => {
+    const phoneValue = event.target.value;
+    setPhone(phoneValue);
+
     // Regular expression for a valid 11-digit number
     const phoneRegex = /^0[0-9]{9}$/;
 
@@ -66,7 +79,7 @@ const CheckoutPanel = () => {
     }
   };
 
-  const isAvaliableName = (event:any)  => {
+  const isAvaliableName = (event: any) => {
     const nameValue = event.target.value;
     setName(nameValue);
     if (name.length < 6) {
@@ -78,7 +91,7 @@ const CheckoutPanel = () => {
     }
   };
 
-  const isAvaliableEmail = (event:any)  => {
+  const isAvaliableEmail = (event: any) => {
     const emailValue = event.target.value;
     setEmail(emailValue);
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -130,7 +143,7 @@ const CheckoutPanel = () => {
                                         <label className="form-label" htmlFor="billing-name">Name</label>
                                         <input type="text" className="form-control" id="billing-name" placeholder="Enter name" value={name}
                                           onChange={isAvaliableName} />
-                                          {nameError && <div className="text-danger">{nameError}</div>}
+                                        {nameError && <div className="text-danger">{nameError}</div>}
                                       </div>
                                     </div>
                                     <div className="col-lg-4">
@@ -146,7 +159,7 @@ const CheckoutPanel = () => {
                                         <label className="form-label" htmlFor="billing-phone">Phone</label>
                                         <input type="text" className="form-control" id="billing-phone" placeholder="Enter Phone no." value={phone}
                                           onChange={isAvaliablePhone} />
-                                              {phoneError && <div className="text-danger">{phoneError}</div>}
+                                        {phoneError && <div className="text-danger">{phoneError}</div>}
                                       </div>
                                     </div>
                                   </div>

@@ -87,7 +87,7 @@ export async function getProductId(
   }
 }
 export async function getCollections(): Promise<CollectionItem[]> {
-  const apiUrl = "http://localhost:8081/api/collections/286469980369";
+  const apiUrl = "http://localhost:8081/api/collections/286470144209";
 
   try {
     const response = await fetch(apiUrl);
