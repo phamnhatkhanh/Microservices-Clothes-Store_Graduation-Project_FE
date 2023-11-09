@@ -1,5 +1,12 @@
-import axios, { AxiosResponse } from "axios";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import '../../App.css';
+import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
+import {
+  cartItemsSelector,
+  setCartItem
+} from "../../store/slices/cartItemsSlice";
 
 export type CollectionItem = {
   id: string;
@@ -15,91 +22,116 @@ export type CollectionItem = {
   tags: string;
   status: string;
 };
+class ShoesType {
+  constructor(public name: string, public id: number) { }
+}
 
-export type ApiResponse = {
-  id: any;
-  title: string;
-  bodyHtml: string;
-  // price: string;
-  // urls: {
-  //   regular: string;
-  // };
+export const COLLECTION = {
+  ShoesIndoor: new ShoesType("Indoor", 286470144209),
+  HighHeel: new ShoesType("High Heel", 286469980369),
+  Sneaker: new ShoesType("Sneaker", 286470078673),
 };
+
+
 
 type Orientation = "landscape" | "portrait" | "squarish";
 interface ImportMetaEnvWithUnsplashAccessKey extends ImportMetaEnv {
   VITE_UNSPLASH_ACCESS_KEY: string;
 }
 
-export default async function getImages(
-  query: string,
-  perPage: number,
-  orientation: Orientation,
-  pagination?: number
-) {
 
-  const accessKey = import.meta.env as ImportMetaEnvWithUnsplashAccessKey;
-  const unsplashAccessKey: string = accessKey.VITE_UNSPLASH_ACCESS_KEY;
-  const apiUrl = "https://api.unsplash.com/search/photos";
+
+export async function subscribeToNewsletter(
+  name: string,
+  email: string,
+  review: string,
+) {
+  const apiUrl = "http://localhost:8086/api/customers/subscribe";
+  const postData = {
+    name: name,
+    email: email,
+    review: review,
+  };
 
   try {
-    const currentPage = pagination || Math.floor(Math.random() * 30 + 1);
-
-    const response: AxiosResponse<ApiResponse> = await axios.get(
-      `${apiUrl}?query=${encodeURIComponent(
-        query
-      )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
-    );
-
-    return response;
-    // return "https://images.unsplash.com/photo-1690583367285-b1803e5b050c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzcwMTB8MHwxfHNlYXJjaHwzMnx8dC1zaGlydHN8ZW58MHwyfHx8MTY5ODI0ODY4NHww&ixlib=rb-4.0.3&q=80&w=1080";
+    axios.post(apiUrl, postData)
+      .then(response => {
+        console.log('Response:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   } catch (error) {
-    // Handle error appropriately
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch data_____");
   }
 }
 
-export async function getProductId(
-  id: any,
-  perPage: number,
-  orientation: Orientation,
-  pagination?: number
-) {
+export async function getCollections(id: any): Promise<CollectionItem[]> {
+  const apiUrl = "http://localhost:8081/api/collections/" + id;
 
-
-  const apiUrl = "http://localhost:8081/api/products";
-
+  const headers = new Headers({
+    'Authorization': 'Basic ' + btoa('user:password'),
+    'Content-Type': 'application/json'
+  });
+  const options = {
+    method: 'GET',
+    headers: headers,
+  };
   try {
-    const currentPage = pagination || Math.floor(Math.random() * 30 + 1);
-
-    const response: AxiosResponse<ApiResponse> = await axios.get(
-      `${apiUrl}/${id}`
-      // `${apiUrl}?query=${encodeURIComponent(
-      //   query
-      // )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
-    );
-
-
-    return response;
-  } catch (error) {
-    // Handle error appropriately
-    throw new Error("Failed to fetch data");
-  }
-}
-export async function getCollections(): Promise<CollectionItem[]> {
-  const apiUrl = "http://localhost:8081/api/collections/286470144209";
-
-  try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, options);
     if (!response.ok) {
       throw new Error(`API request failed with status: ${response.status}`);
     }
-
+    
     const data = await response.json();
-    // Assuming the API response is an array of collection items
     return data;
   } catch (error) {
     console.error("Error fetching collections:", error);
     return [];
   }
+  
+  
 }
+
+export async function saveOrder(email:string,phone:string,name:string,address:string,city:string){
+  const cartItemDetails = useAppSelector(cartItemsSelector);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const items = cartItemDetails.map((item) => {
+    const { id, price, quantity } = item;
+    return { id, price, quantity };
+  });
+
+  const requestBody = {
+    email,
+    phone,
+    name,
+    address,
+    city,
+    items
+  };
+console.log(requestBody)
+  const requestOptions = {
+    // method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(requestBody),
+  };
+  
+  const apiUrl = "http://localhost:8082/api/orders";
+
+
+  try {
+    axios.post(apiUrl, requestOptions)
+      .then(response => {
+        navigate("/success");
+        dispatch(setCartItem([]));
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  } catch (error) {
+    throw new Error("Failed to fetch data_____");
+  }
+
+};

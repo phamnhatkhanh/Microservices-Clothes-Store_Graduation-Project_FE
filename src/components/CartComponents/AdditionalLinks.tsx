@@ -25,7 +25,7 @@ const AdditionalLinks = ({ cartValue }: AdditionalLinksProps) => {
         <p className="text-lg">
           {cartValue === 0 ? "Your Cart Is Empty" : null}
         </p>
-        {normalLinks.map((value, index) => (
+        {/* {normalLinks.map((value, index) => (
           <Link
             to={"/search"}
             key={value}
@@ -41,7 +41,7 @@ const AdditionalLinks = ({ cartValue }: AdditionalLinksProps) => {
           >
             Shop {value}
           </Link>
-        ))}
+        ))} */}
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import '../../App.css';
 import { useAppSelector } from "../../store/hooks";
 import { useAppDispatch } from "../../store/hooks";
+// import{saveOrder} from"../../utilities/api/apiService"
 import {
   cartItemsSelector,
   setCartItem
@@ -108,6 +109,7 @@ const CheckoutPanel = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    console.log("sfdhsbf")
     saveOrder();
   };
   const isLoading = false;

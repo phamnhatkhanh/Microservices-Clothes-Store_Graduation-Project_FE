@@ -33,39 +33,39 @@ const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
             className="flex w-fit mx-4 transition-all"
             style={{ transform: `translateX(${transformValue}px)` }}
           >
-            {data? data.map((item) => {
-              console.log(item)
+            {data ? data.map((item) => {
+
               return (
                 <div
                   key={item.id}
                   onClick={() => {
                     dispatch(
                       setProductItems({
-                        id:item.id,
-                        title:item.title,
-                        bodyHtml:item.bodyHtml,
-                        vendor:item.vendor,
-                        productType:item.productType,
-                        createdAt:item.createdAt,
-                        updatedAt:item.updatedAt,
-                        publishedAt:item.publishedAt,
-                        banner:item.banner,
-                        price:item.price,
-                        tags:item.tags,
-                        status:item.status,
+                        id: item.id,
+                        title: item.title,
+                        bodyHtml: item.bodyHtml,
+                        vendor: item.vendor,
+                        productType: item.productType,
+                        createdAt: item.createdAt,
+                        updatedAt: item.updatedAt,
+                        publishedAt: item.publishedAt,
+                        banner: item.banner,
+                        price: item.price,
+                        tags: item.tags,
+                        status: item.status,
                       })
                     );
                   }}
                 >
                   <GalleryItem
-                  price={item.price}
+                    price={item.price}
                     imageUrl={item.banner}
                     bodyHTML={item.bodyHtml}
                     title={item.title}
                   />
                 </div>
               );
-            }):[]}
+            }) : []}
           </div>
         </div>
       </section>
