@@ -9,7 +9,7 @@ type HeroImage = {
 };
 
 type Results = {
-  id: string;
+  id: any;
   alt_description: string;
   description: string;
   urls: {
@@ -28,7 +28,7 @@ const Hero = ({ data }: HeroImage) => {
       alt_description: '', // You can provide a value or logic for this field
       description: item.title, // You can map the 'title' field to 'description'
       urls: {
-        regular: "https://ae01.alicdn.com/kf/HTB13SVNtTCWBKNjSZFtq6yC3FXaw.jpg", // You can provide a value or logic for this field
+        regular: item.banner, // You can provide a value or logic for this field
       },
     })).slice(0, visibleItems);
     setResults(visibleImages);

@@ -18,7 +18,7 @@ const PricePanel = () => {
     let totalPrice = 0;
     cartItems.map((item) => {
       if (item.price && item.quantity) {
-        const price = Number(item.price.slice(1));
+        const price = Math.floor(item.price);
         totalPrice += price * item.quantity;
       }
     });

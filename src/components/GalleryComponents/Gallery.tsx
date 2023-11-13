@@ -2,31 +2,8 @@ import { useState } from "react";
 import GalleryItem from "./GalleryItem";
 import { CollectionItem } from "../../utilities/api/apiService";
 import { setProductItems } from "../../store/slices/productSlice";
-import generatePrice from "../../utilities/RandomGenerators/generatePrice";
 import CarouselArrow from "./CarouselArrow";
-import { randomTitle } from "../../utilities/RandomGenerators/generateTitle";
 import { useAppDispatch } from "../../store/hooks";
-
-// type GalleryProps = {
-//   data?: any[string];
-//   galleryName: string;
-//   product: string;
-// };
-// type CollectionItem = {
-//   bodyHtml: string;
-//   createdAt: string;
-//   handle: string;
-//   id: number;
-//   productType: string;
-//   publishedAt: string | null;
-//   publishedScope: string;
-//   status: string;
-//   tags: string;
-//   templateSuffix: string | null;
-//   title: string;
-//   updatedAt: string;
-//   vendor: string;
-// };
 
 
 type GalleryProps = {
@@ -38,12 +15,6 @@ type GalleryProps = {
 const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
   const dispatch = useAppDispatch();
   const [transformValue, setTransformValue] = useState(0);
-  // data.forEach(element => {
-    
-  // });((item) => {
-  //   console.log(item); // "Data from the Promise"
-  // });
-  
 
 
   return (
@@ -63,24 +34,33 @@ const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
             style={{ transform: `translateX(${transformValue}px)` }}
           >
             {data? data.map((item) => {
-              
+              console.log(item)
               return (
                 <div
                   key={item.id}
                   onClick={() => {
                     dispatch(
                       setProductItems({
-                        Imgurl: "https://ae01.alicdn.com/kf/HTB1ypWdKXmWBuNjSspdq6zugXXaQ.jpg",
-                        product: product,
-                        title: item.title,
-                        price: generatePrice(),
+                        id:item.id,
+                        title:item.title,
+                        bodyHtml:item.bodyHtml,
+                        vendor:item.vendor,
+                        productType:item.productType,
+                        createdAt:item.createdAt,
+                        updatedAt:item.updatedAt,
+                        publishedAt:item.publishedAt,
+                        banner:item.banner,
+                        price:item.price,
+                        tags:item.tags,
+                        status:item.status,
                       })
                     );
                   }}
                 >
                   <GalleryItem
-                    imageUrl="https://ae01.alicdn.com/kf/HTB1ypWdKXmWBuNjSspdq6zugXXaQ.jpg"
-                    altText="{item.bodyHtml}"
+                  price={item.price}
+                    imageUrl={item.banner}
+                    bodyHTML={item.bodyHtml}
                     title={item.title}
                   />
                 </div>

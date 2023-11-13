@@ -1,36 +1,23 @@
 import axios, { AxiosResponse } from "axios";
 
-// export type ApiResponse = {
-//   total: number;
-//   total_pages: number;
-//   results: {
-//     id: string;
-//     alt_description: string;
-//     description: string;
-//     price: string;
-//     urls: {
-//       regular: string;
-//     };
-//   }[];
-// };
+
 export type CollectionItem = {
-  bodyHtml: string;
-  createdAt: string;
-  handle: string;
-  id: number;
-  productType: string;
-  publishedAt: string | null;
-  publishedScope: string;
-  status: string;
-  tags: string;
-  templateSuffix: string | null;
+  id: string;
   title: string;
-  updatedAt: string;
+  bodyHtml: string;
   vendor: string;
+  productType: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  banner: string;
+  price: number;
+  tags: string;
+  status: string;
 };
 
 export type ApiResponse = {
-  id: string;
+  id: any;
   title: string;
   bodyHtml: string;
   // price: string;
@@ -64,7 +51,7 @@ export default async function getImages(
       )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
     );
 
-return response;
+    return response;
     // return "https://images.unsplash.com/photo-1690583367285-b1803e5b050c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzcwMTB8MHwxfHNlYXJjaHwzMnx8dC1zaGlydHN8ZW58MHwyfHx8MTY5ODI0ODY4NHww&ixlib=rb-4.0.3&q=80&w=1080";
   } catch (error) {
     // Handle error appropriately
@@ -73,7 +60,7 @@ return response;
 }
 
 export async function getProductId(
-  id: string,
+  id: any,
   perPage: number,
   orientation: Orientation,
   pagination?: number
@@ -92,14 +79,14 @@ export async function getProductId(
       // )}&per_page=${perPage}&page=${currentPage}&orientation=${orientation}&client_id=${unsplashAccessKey}`
     );
 
-    
+
     return response;
   } catch (error) {
     // Handle error appropriately
     throw new Error("Failed to fetch data");
   }
 }
-export  async function getCollections(): Promise<CollectionItem[]> {
+export async function getCollections(): Promise<CollectionItem[]> {
   const apiUrl = "http://localhost:8081/api/collections/286469980369";
 
   try {

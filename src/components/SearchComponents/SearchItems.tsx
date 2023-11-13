@@ -118,7 +118,7 @@ useEffect(() => {
                   onClick={() => {
                     dispatch(
                       setProductItems({
-                        Imgurl: "https://ae01.alicdn.com/kf/HTB1F02QKb5YBuNjSspoq6zeNFXaW.jpg",
+                        imgurl: "https://ae01.alicdn.com/kf/HTB1F02QKb5YBuNjSspoq6zeNFXaW.jpg",
                         product: searchQueryValue,
                         title: data.title,
                         price: price,
