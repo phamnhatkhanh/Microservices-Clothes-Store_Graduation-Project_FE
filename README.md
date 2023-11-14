@@ -1,7 +1,4 @@
 # Microservices-Clothes-Store_Project_Graduation_FE
-## Full Stack E-commerce Web Application 
-
-
 ### Technologies And Tools Used
 - React Js
 - Typescript
@@ -16,12 +13,11 @@
   
 - Search And Filters - Easily search for products using keywords and browse through multiple products using pagination and apply filters to narrow down choices.
   
-  
 - Shopping Cart - Add products to the cart, view the cart contents, and adjust quantities before checkout.
   
 - Checkout - Securely Checkout info order and call api to save order.
   
-- Cart Item Persistence - User's shopping cart items are automatically saved and retrieved from Firestore, ensuring a seamless shopping experience even if the user closes the browser or logs out. This feature enhances convenience and reduces the risk of losing items in the cart.
+- Cart Item Persistence - User's shopping cart items are automatically saved and ensuring a seamless shopping experience even if the user closes the browser or logs out. This feature enhances convenience and reduces the risk of losing items in the cart.
 
 - Newsletter Subscription - Easily Subscribe to newsletter and give reviews.
 
@@ -37,14 +33,17 @@
 - Accessibility
 
 ## Screenshots
-
-![Home Page]()
-
-![Product Page]()
-
-![Cart Panel]()
-
-![Order Pagel]()
+#### Home page
+![Home Page](./src/assets/homepage_banner.png)
+![Home Page](./src/assets/homepage_collection.png)
+#### Product page
+![Product Page](./src/assets/product_banner.png)
+![Alireview apps](./src/assets/alireview.png)
+![Alireview Admin](./src/assets/alireview_admin.png)
+#### Cart page
+![Cart Panel](./src/assets/cartpage.png)
+#### Order page
+![Order Pagel](./src/assets/orderpage.png)
 
 ## Reference project:
 * https://github.com/akshatsharma1290/EcoPlume-E-Commerce-Store-
