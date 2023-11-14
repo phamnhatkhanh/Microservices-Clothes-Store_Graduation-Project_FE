@@ -15,6 +15,9 @@ export type CartItemsType = {
 type RemoveCart = CartItemsType & {
   removeAll: boolean;
 };
+type ResetCart = {
+  removeAll: boolean;
+};
 
 const initialState: CartItemsType[] = [];
 
@@ -63,7 +66,8 @@ const cartItemsSlice = createSlice({
     },
     setCartItem: (_, action: PayloadAction<CartItemsType[]>) => {
       return action.payload;
-    },
+    }
+
   },
 });
 

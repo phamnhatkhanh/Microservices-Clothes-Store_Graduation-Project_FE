@@ -8,22 +8,23 @@ import ProductDescription from "../components/ProductComponents/ProductDescripti
 import SizeAndCartPanel from "../components/ProductComponents/SizeAndCartPanel";
 
 import Loader from "../components/Reusables/Loader";
+import AlireviewApp from "../utilities/AlireviewApp";
 
 const ProductPage = () => {
   const [searchParam] = useSearchParams();
   const category = searchParam.get("category") || "";
   const isLoading = false;
-  
+
   const productItems = useAppSelector(productSelector);
-  
-  const { id,title,bodyHtml,vendor,productType,createdAt,updatedAt,publishedAt,banner,price,tags,status} = productItems;
+
+  const { id, title, bodyHtml, vendor, productType, createdAt, updatedAt, publishedAt, banner, price, tags, status } = productItems;
 
   useEffect(() => {
     window.scroll({ top: 0 });
   }, [productItems]);
 
   const productCategory = `${toTitleCase(title)}`;
-
+  
   return (
     <>
       {isLoading ? (
@@ -42,10 +43,11 @@ const ProductPage = () => {
               category={category}
               title={title}
               imgurl={banner}
-              bodyHtml = {bodyHtml}
+              bodyHtml={bodyHtml}
               price={price}
             />
             <SizeAndCartPanel price={price} category={category} />
+            <AlireviewApp id ={id}/>
           </section>
         </>
       )}

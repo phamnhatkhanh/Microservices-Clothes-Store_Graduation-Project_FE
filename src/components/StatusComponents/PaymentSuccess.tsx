@@ -7,14 +7,11 @@ import { loadingSelector } from "../../store/slices/loadingSlice";
 import Loader from "../Reusables/Loader.tsx"
 
 const PaymentSuccess = () => {
-  const dispatch = useDispatch();
+  
   const isLoading = false;
   // const isLoading = useAppSelector(loadingSelector)
 
-  const removeCartItems = () => {
-    dispatch(setCartItem([]));
-  };
-
+ 
   return (
     <>
         {isLoading ? <Loader/> : null}
@@ -30,12 +27,6 @@ const PaymentSuccess = () => {
           >
             Go To Home
           </Link>
-          <button
-            onClick={removeCartItems}
-            className="mt-4 bg-white w-11/12 h-10 grid place-content-center text-xl rounded-md font-kanit"
-          >
-            Remove Shopped Items
-          </button>
         </div>
       </section>
     </>

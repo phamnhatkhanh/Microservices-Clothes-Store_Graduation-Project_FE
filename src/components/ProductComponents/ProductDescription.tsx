@@ -2,7 +2,7 @@ import { useAppSelector } from "../../store/hooks";
 import { checkoutPriceSelector } from "../../store/slices/checkoutPriceSlice";
 import generateRating from "../../utilities/RandomGenerators/generateRating";
 import toTitleCase from "../../utilities/SmallFunctions/titleCase";
-import RenderHTML from '../../utilities/RenderHTML'; 
+import RenderHTML from '../../utilities/RenderHTML';
 type ProductDescriptionProps = {
   id: any
   category: string;
@@ -23,9 +23,12 @@ const ProductDescription = ({
   const checkoutPrice = useAppSelector(checkoutPriceSelector);
   const priceValue = Math.floor(price);
   const freeShippingPrice = 75;
-console.log(id)
+  
+
   return (
     <>
+
+
       <div className="font-outfit flex justify-between items-center px-5 mt-3 text-xl">
         <h1 className="font-bold"> {title}</h1>
         <h2>${price}</h2>
@@ -42,8 +45,9 @@ console.log(id)
         <img className="md:w-2/4" src={imgurl} alt={title} />
       </div>
       <div className="mt-5 md:flex md:justify-center">
-      <RenderHTML htmlString={bodyHtml} />
+        <RenderHTML htmlString={bodyHtml} />
       </div>
+      
     </>
   );
 };
