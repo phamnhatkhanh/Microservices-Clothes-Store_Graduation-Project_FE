@@ -9,20 +9,22 @@ import { useAppDispatch } from "../../store/hooks";
 type GalleryProps = {
   data?: CollectionItem[];
   galleryName: string;
+  subtitle?:string;
   product: string;
 };
 
-const Gallery: React.FC<GalleryProps> = ({ data, galleryName, product }) => {
+const Gallery: React.FC<GalleryProps> = ({ data, galleryName, subtitle, product }) => {
   const dispatch = useAppDispatch();
   const [transformValue, setTransformValue] = useState(0);
 
 
   return (
     <>
-      <section className="mt-5 flex flex-col items-center w-screen relative dark:text-white">
+      <section className="mt-20 mb-4 flex flex-col items-center w-screen relative dark:text-white">
         <h2 className="font-outfit font-bold text-3xl tracking-wide  ">
           {galleryName}
         </h2>
+        <p className="mt-5 font-outfit font-bold fs-1 tracking-wide text-center ">{subtitle} </p>
         <hr className="border-2 border-slate-300 my-3 w-screen" />
         <CarouselArrow
           transformValue={transformValue}

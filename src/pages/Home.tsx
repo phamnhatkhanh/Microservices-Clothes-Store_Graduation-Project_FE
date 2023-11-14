@@ -37,12 +37,14 @@ const Home = () => {
 
         <Gallery
           data={sneakerCollections}
-          galleryName="Best Clothes"
+          galleryName="SNEAKERS"
+          subtitle = "In an array of colors and designs, sneakers including the Ace sneaker, the Rhyton and many more are enriched with House symbols."
           product="t-shirts"
         />
         <Gallery
           data={shoesIndoorCollections}
-          galleryName="Best Clothes"
+          galleryName="Women's Indoor"
+          subtitle="It's that warm and cozy shoe that you wear around the house, especially on cold winter days."
           product="t-shirts"
         />
         <Newsletter />

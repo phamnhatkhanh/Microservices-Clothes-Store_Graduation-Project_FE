@@ -38,9 +38,9 @@ const Navbar = () => {
             <img src={BrandLogo} className="h-14" alt="Logo Of EcoPlume" />
           </Link>
           <div className="icons flex gap-2">
-            <Link to={"/search"} className="search text-3xl cursor-pointer">
+            {/* <Link to={"/search"} className="search text-3xl cursor-pointer">
               <CiSearch strokeWidth={1} />
-            </Link>
+            </Link> */}
             <Link to={"/auth"} className="user-account text-4xl cursor-pointer">
               <CiUser strokeWidth={1} />
             </Link>
