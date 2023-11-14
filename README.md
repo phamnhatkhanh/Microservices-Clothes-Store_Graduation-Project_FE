@@ -16,7 +16,6 @@
   
 - Search And Filters - Easily search for products using keywords and browse through multiple products using pagination and apply filters to narrow down choices.
   
-  
 - Shopping Cart - Add products to the cart, view the cart contents, and adjust quantities before checkout.
   
 - Checkout - Securely Checkout info order and call api to save order.
@@ -42,9 +41,9 @@
 
 ![Product Page]()
 
-![Cart Panel]()
+![Cart Page]()
 
-![Order Pagel]()
+![Order Page]()
 
 ## Reference project:
 * https://github.com/akshatsharma1290/EcoPlume-E-Commerce-Store-
