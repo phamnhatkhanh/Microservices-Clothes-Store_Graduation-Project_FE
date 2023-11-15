@@ -9,7 +9,7 @@ type GalleryItemProps = {
 };
 
 const GalleryItem = ({ imageUrl, price, title }: GalleryItemProps) => {
-  const renderLinks = (category: string) => {
+  const renderLinks = () => {
     return (
       <Link 
         to={`/products/${title}`}
@@ -39,7 +39,7 @@ const GalleryItem = ({ imageUrl, price, title }: GalleryItemProps) => {
             ${price}
           </p>
           <div className="buttons space-y-2 flex flex-col items-center w-full mt-3">
-            {renderLinks("now")}
+            {renderLinks()}
           </div>
         </div>
       </div>

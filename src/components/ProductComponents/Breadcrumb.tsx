@@ -17,12 +17,12 @@ const Breadcrumb = ({
 }: BreadcrumbProps) => {
   const dispatch = useAppDispatch();
 
-  const handleProductCategoryLink = () => {
-    dispatch(setSearchQuery(product));
-    category === "men"
-      ? dispatch(setFilters({ category: "Men" }))
-      : dispatch(setFilters({ category: "Women" }));
-  };
+  // const handleProductCategoryLink = () => {
+  //   dispatch(setSearchQuery(product));
+  //   category === "men"
+  //     ? dispatch(setFilters({ category: "Men" }))
+  //     : dispatch(setFilters({ category: "Women" }));
+  // };
   return (
     <>
       <div className="breadcrumb font-kanit text-sm flex gap-1 pl-5 dark:tracking-wide dark:font-light">
@@ -40,16 +40,15 @@ const Breadcrumb = ({
           {productCategory}
         </Link> */}
         {/* <span>/</span> */}
-        <Link
-          to={`/search`}
+        <div
           className="underline"
           onClick={() => {
-            dispatch(setSearchQuery(product));
-            dispatch(setFilters({ category: "" }));
+            // dispatch(setSearchQuery(product));
+            // dispatch(setFilters({ category: "" }));
           }}
         >
           {toTitleCase(product)}
-        </Link>
+        </div>
         {/* <span>/</span> */}
       </div>
     </>

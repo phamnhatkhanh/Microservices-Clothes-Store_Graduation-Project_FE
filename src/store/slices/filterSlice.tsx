@@ -2,15 +2,15 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 type FilterTypes = {
-  category?: "Women" | "Men" | "";
+  category?: string;
   price?: number[];
-  shipping?: "Free" | "";
+  id:number[];
 };
 
 export const initialState: FilterTypes = {
-  category: "",
+  category:"",
   price: [],
-  shipping: "",
+  id: [],
 };
 
 const filterSlice = createSlice({

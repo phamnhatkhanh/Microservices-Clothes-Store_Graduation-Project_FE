@@ -1,77 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from 'react';
 import Footer from "../components/HomeComponents/Footer";
 import Gallery from "../components/GalleryComponents/Gallery";
 import Hero from "../components/HomeComponents/Hero";
 import Newsletter from "../components/HomeComponents/Newsletter";
-import { useQuery } from "@tanstack/react-query";
-import {getCollections,CollectionItem} from "../utilities/api/apiService";
-import Loader from "../components/Reusables/Loader";
-import { useAppSelector } from "../store/hooks";
-import { loadingSelector } from "../store/slices/loadingSlice";
-import { ApiResponse } from "../utilities/api/apiService";
-import { set } from 'firebase/database';
+import { getCollections, CollectionItem, COLLECTION } from "../utilities/api/apiService";
+
 const Home = () => {
-  const perPage = 6;
-  const orientation = "squarish";
-  const isLoading = useAppSelector(loadingSelector);
 
-  // const shoesQuery = getCollections("286469980369", perPage, orientation);
 
-  // const shoesQuery = getProductId("7278542291153", perPage, orientation);
-  // const queryResult = useQuery({
-  //   queryKey: ["id"],
-  //   queryFn: () => getCollections("286469980369", perPage, orientation),
-  //   refetchOnWindowFocus: false,
-  //   retry: 2,
-  //   staleTime: 300000,
-  // });
+  const [highHeelCollections, setHighHeelCollections] = useState<CollectionItem[]>([]);
+  const [sneakerCollections, setSneakerCollections] = useState<CollectionItem[]>([]);
+  const [shoesIndoorCollections, setShoesIndoorCollections] = useState<CollectionItem[]>([]);
+  useEffect(() => {
+    getCollections(COLLECTION.HighHeel.id).then((data) => {
+      setHighHeelCollections(data);
+    });
+  }, []);
 
-  // const shirtQuery = useQuery({
-  //   queryKey: ["images", "T-Shirts", perPage, orientation],
-  //   queryFn: () => getImages("T-Shirts", perPage, orientation),
-  //   refetchOnWindowFocus: false,
-  //   retry: 2,
-  //   staleTime: 300000,
-  // });
+  useEffect(() => {
+    getCollections(COLLECTION.Sneaker.id).then((data) => {
+      setSneakerCollections(data);
+    });
+  }, []);
+  useEffect(() => {
+    getCollections(COLLECTION.ShoesIndoor.id).then((data) => {
+      setShoesIndoorCollections(data);
+    });
+  }, []);
 
-  // const heroImageQuery = useQuery({
-  //   queryKey: ["images", "Shoes and clothes", perPage, orientation],
-  //   queryFn: () => getImages("Shoes and clothes", perPage, orientation),
-  //   refetchOnWindowFocus: false,
-  //   retry: 2,
-  //   staleTime: 300000,
-  // });
 
-  // if (isLoading || shoesQuery.isFetching || shirtQuery.isFetching) {
-  //   return <Loader />;
-  // }
-//console.log(shoesQuery)
-const [collections, setCollections] = useState<CollectionItem[]>([]);
 
-useEffect(() => {
-  getCollections().then((data) => {
-    setCollections(data);
-  });
-}, []);
-  
-  
-
-  
-  // Example usage of the getCollections function
-  
   return (
     <>
       <main>
-        {collections ? <Hero data={collections} /> : null}
-       
+        {highHeelCollections ? <Hero data={highHeelCollections} /> : null}
+
         <Gallery
-          data={collections}
+          data={sneakerCollections}
           galleryName="Best Clothes"
           product="t-shirts"
         />
         <Gallery
-          data={collections}
+          data={shoesIndoorCollections}
           galleryName="Best Clothes"
           product="t-shirts"
         />
