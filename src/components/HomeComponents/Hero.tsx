@@ -26,19 +26,19 @@ const Hero = ({ data }: HeroImage) => {
     const visibleItems = Math.ceil(window.innerWidth / 800);
     const visibleImages = data.map((item) => ({
       id: item.id.toString(),
-      alt_description: '', 
-      description: item.title, 
-      urls: { 
-        regular: item.banner, 
+      alt_description: '',
+      description: item.title,
+      urls: {
+        regular: item.banner,
       },
     })).slice(0, visibleItems);
-     
+
     setResults(visibleImages);
-    setShoesOutstanding(data.slice(1,2)[0]);
+    setShoesOutstanding(data.slice(1, 2)[0]);
   }, [data]);
 
 
-  
+
   return (
     <>
       <section className="hero relative">
@@ -57,34 +57,36 @@ const Hero = ({ data }: HeroImage) => {
         </picture>
         <section className="absolute top-64 text-center bottom-10 text-white font-outfit flex flex-col items-baseline px-4 md:px-7 xl:px-10 font-semibold">
           <div className=" flex justify-center flex-col gap-y-4" onClick={() => {
-                    dispatch(
-                      setProductItems({
-                        id: shoesOutstanding!.id,
-                        title: shoesOutstanding!.title,
-                        bodyHtml: shoesOutstanding!.bodyHtml,
-                        vendor: shoesOutstanding!.vendor,
-                        productType: shoesOutstanding!.productType,
-                        createdAt: shoesOutstanding!.createdAt,
-                        updatedAt: shoesOutstanding!.updatedAt,
-                        publishedAt: shoesOutstanding!.publishedAt,
-                        banner: shoesOutstanding!.banner,
-                        price: shoesOutstanding!.price,
-                        tags: shoesOutstanding!.tags,
-                        status: shoesOutstanding!.status,
-                      })
-                    );
-                  }}>
+            dispatch(
+              setProductItems({
+                id: shoesOutstanding!.id,
+                title: shoesOutstanding!.title,
+                bodyHtml: shoesOutstanding!.bodyHtml,
+                vendor: shoesOutstanding!.vendor,
+                productType: shoesOutstanding!.productType,
+                createdAt: shoesOutstanding!.createdAt,
+                updatedAt: shoesOutstanding!.updatedAt,
+                publishedAt: shoesOutstanding!.publishedAt,
+                banner: shoesOutstanding!.banner,
+                price: shoesOutstanding!.price,
+                tags: shoesOutstanding!.tags,
+                status: shoesOutstanding!.status,
+              })
+            );
+          }}>
             <h1 className="text-3xl xl:text-4xl">
-              Chase Views In Breezy Shoes
+              High Heels For Women
             </h1>
-            <h2 className="text-base xl:text-xl">
-              The Lightweight Tree Runner is ready for anything summer throws at
-              you.
+            <h2 className="text-base xl:text-xl gap-y-4">
+              Choose from a varied selection of leather sandals
+            </h2>
+            <h2 className="text-base xl:text-xl gap-y-4">
+              including high heels, slides, platform designs and flat sandals enriched
             </h2>
             <div className="buttons space-x-3 flex justify-center">
-          
+
               <Link
-               to={`/products/${shoesOutstanding?.title}}`}
+                to={`/products/${shoesOutstanding?.title}}`}
                 className="bg-white text-black hover:text-white hover:bg-slate-900 px-4 py-3 w-2/4 cursor-pointer rounded-md uppercase transition-all text-center"
               >
                 Buy now

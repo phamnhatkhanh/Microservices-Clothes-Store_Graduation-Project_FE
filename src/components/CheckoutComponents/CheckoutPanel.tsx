@@ -47,19 +47,19 @@ const CheckoutPanel = () => {
       city,
       items
     };
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     };
-    
+ 
     fetch('http://localhost:8082/api/orders', requestOptions)
       .then(data => {
         navigate("/success");
         dispatch(setCartItem([]));
       })
       .catch(error => {
-        // Handle any errors here
         
       });
 
