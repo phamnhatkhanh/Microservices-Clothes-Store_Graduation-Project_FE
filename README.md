@@ -32,7 +32,6 @@
 - Fast Loading
 - Accessibility
 
-## Screenshots
 #### Home page
 ![Home Page](./src/assets/homepage_banner.png)
 ![Home Page](./src/assets/homepage_collection.png)
@@ -44,6 +43,7 @@
 ![Cart Panel](./src/assets/cartpage.png)
 #### Order page
 ![Order Pagel](./src/assets/orderpage.png)
+
 
 ## Reference project:
 * https://github.com/akshatsharma1290/EcoPlume-E-Commerce-Store-
